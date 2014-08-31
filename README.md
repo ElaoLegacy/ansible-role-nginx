@@ -1,7 +1,8 @@
 Ansible Role - Nginx
 ====================
 
-A nginx role for elao symfony standard vagrant box
+A nginx role to install ruby on elao symfony standard vagrant box
+
 
 Requirements
 ------------
@@ -11,7 +12,8 @@ This role only run on elao symfony standard vagrant box. See https://vagrantclou
 Role Handlers
 -------------
 
-* nginx restart: Restart nginx service
+    nginx restart  # Restart nginx service
+
 
 Example Playbook
 ----------------
@@ -20,10 +22,12 @@ Example Playbook
       roles:
          - { role: elao.nginx }
 
+
 License
 -------
 
 MIT
+
 
 Author Information
 ------------------
