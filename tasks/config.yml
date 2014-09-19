@@ -1,0 +1,25 @@
+---
+
+- name: config env
+  template: >
+    src=config_{{ item }}.conf.j2
+    dest=/etc/nginx/conf.d/90_config_{{ item }}.conf
+  notify:
+    - nginx restart
+  when: elao_env == item
+  with_items:
+    - dev
+    - prod
+  sudo: yes
+
+- name: config env not
+  file: >
+    dest=/etc/nginx/conf.d/90_config_{{ item }}.conf
+    state=absent
+  notify:
+    - nginx restart
+  when: not elao_env == item
+  with_items:
+    - dev
+    - prod
+  sudo: yes

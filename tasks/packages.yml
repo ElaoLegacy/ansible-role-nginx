@@ -1,0 +1,30 @@
+---
+
+- name: packages pinning
+  template: >
+    src=pinning.j2
+    dest=/etc/apt/preferences.d/nginx
+  sudo: yes
+
+- name: repositories key
+  apt_key: >
+    url=http://www.dotdeb.org/dotdeb.gpg
+    state=present
+  sudo: yes
+
+- name: repositories
+  apt_repository: >
+    repo="{{ item }}"
+    state=present
+    update_cache=yes
+  with_items:
+    - deb http://packages.dotdeb.org {{ ansible_distribution_release }} all
+  sudo: yes
+
+- name: packages
+  apt: >
+    name={{ item }}
+    state=latest
+  with_items:
+    - nginx
+  sudo: yes
