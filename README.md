@@ -15,6 +15,12 @@ Role Handlers
     nginx restart  # Restart nginx service
 
 
+Role Variables
+--------------
+
+    elao_nginx_user: www-data    # Nginx user
+
+
 Example Playbook
 ----------------
 
