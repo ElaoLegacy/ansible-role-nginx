@@ -8,11 +8,12 @@ Role Handlers
 
     nginx restart  # Restart nginx service
 
-
 Role Variables
 --------------
 
     All those values are default configuration, specify them only if you need to override the default configuration.
+
+## Sample configuration:
 
 ```
 elao_nginx_config_global:
@@ -26,6 +27,9 @@ elao_nginx_config_events:
     use_epoll:                   yes
 
 elao_nginx_config_http:
+    sendfile:                    "on"
+    tcp_nopush:                  "on"
+    tcp_nodelay:                 "on"
     keepalive_timeout:           "65s"
     client_body_timeout:         "60s"
     client_header_timeout:       "60s"
@@ -39,10 +43,19 @@ elao_nginx_config_http:
     types_hash_max_size:         1024
     server_tokens:               "on"
 
-    types_hash_max_size:         1024
     default_type:                "text/html"
     access_log:                  "/var/log/nginx/access.log"
     error_log:                   "/var/log/nginx/error.log"
+
+elao_nginx_config_gzip:
+    gzip:                        "on"
+    gzip_disable:                "msie6"
+    gzip_vary:                   "on"
+    gzip_proxied:                "any"
+    gzip_comp_level:             6
+    gzip_buffers:                "16 8k"
+    gzip_http_version:           "1.1"
+    gzip_types:                  "text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;"
 ```
 
 Example Playbook

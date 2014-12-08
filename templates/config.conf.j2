@@ -16,9 +16,9 @@ http {
     # Basic Settings
     ##
 
-    sendfile                      on;
-    tcp_nopush                    on;
-    tcp_nodelay                   on;
+    sendfile                      {{ elao_nginx_config_http.sendfile|default("on") }};
+    tcp_nopush                    {{ elao_nginx_config_http.tcp_nopush|default("on") }};
+    tcp_nodelay                   {{ elao_nginx_config_http.tcp_nodelay|default("on") }};
     keepalive_timeout             {{ elao_nginx_config_http.keepalive_timeout|default("65s") }};
     
     client_body_timeout           {{ elao_nginx_config_http.client_body_timeout|default("60s") }};
@@ -50,7 +50,7 @@ http {
     # Gzip Settings
     ##
 
-    gzip                    {{ elao_nginx_config_gzip.active|default("on") }};
+    gzip                    {{ elao_nginx_config_gzip.active|default("off") }};
     gzip_disable            {{ elao_nginx_config_gzip.gzip_disable|default("msie6") }};
 
     gzip_vary               {{ elao_nginx_config_gzip.gzip_vary|default("on") }};
@@ -58,7 +58,7 @@ http {
     gzip_comp_level         {{ elao_nginx_config_gzip.gzip_comp_level|default(6) }};
     gzip_buffers            {{ elao_nginx_config_gzip.gzip_buffers|default("16 8k") }};
     gzip_http_version       {{ elao_nginx_config_gzip.gzip_http_version|default("1.1") }};
-    gzip_types              {{ elao_nginx_config_gzip.gzip_types|default("text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;") }};
+    gzip_types              {{ elao_nginx_config_gzip.gzip_types|default("text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript") }};
 
     ##
     # nginx-naxsi config
