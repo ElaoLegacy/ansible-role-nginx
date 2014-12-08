@@ -1,3 +1,6 @@
 ---
 
-elao_nginx_user: www-data
+elao_nginx_config_global: []
+elao_nginx_config_events: []
+elao_nginx_config_http:   []
+elao_nginx_config_gzip:   []

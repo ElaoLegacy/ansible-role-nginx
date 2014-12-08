@@ -1,0 +1,77 @@
+user {{ elao_nginx_config_global.user|default("www-data") }};
+worker_processes {{ elao_nginx_config_global.worker_processes|default(2) }};
+pid {{ elao_nginx_config_global.pid|default("/var/run/nginx.pid") }};
+
+events {
+    worker_connections            {{ elao_nginx_config_events.worker_connections|default(768) }};
+    multi_accept                  {{ elao_nginx_config_events.multi_accept|default("on") }};
+    {% if elao_nginx_config_events.use_epoll is defined and elao_nginx_config_events.use_epoll -%}
+    use                           epoll;
+    {% endif -%}
+}
+
+http {
+
+    ##
+    # Basic Settings
+    ##
+
+    sendfile                      on;
+    tcp_nopush                    on;
+    tcp_nodelay                   on;
+    keepalive_timeout             {{ elao_nginx_config_http.keepalive_timeout|default("65s") }};
+    
+    client_body_timeout           {{ elao_nginx_config_http.client_body_timeout|default("60s") }};
+    client_header_timeout         {{ elao_nginx_config_http.client_header_timeout|default("60s") }};
+    client_body_buffer_size       {{ elao_nginx_config_http.client_body_buffer_size|default("8k") }};
+    client_header_buffer_size     {{ elao_nginx_config_http.client_header_buffer_size|default("1k") }};
+    client_max_body_size          {{ elao_nginx_config_http.client_max_body_size|default("1m") }};
+
+    large_client_header_buffers   {{ elao_nginx_config_http.large_client_header_buffers|default("4 8k") }};
+    send_timeout                  {{ elao_nginx_config_http.send_timeout|default("60s") }};
+    reset_timedout_connection     {{ elao_nginx_config_http.reset_timedout_connection|default("off") }};
+    types_hash_max_size           {{ elao_nginx_config_http.types_hash_max_size|default(1024) }};
+    server_tokens                 {{ elao_nginx_config_http.server_tokens|default("on") }};
+
+    server_names_hash_bucket_size {{ elao_nginx_config_http.server_names_hash_bucket_size|default(64) }};
+    server_name_in_redirect       {{ elao_nginx_config_http.server_name_in_redirect|default("off") }};
+
+    include                       /etc/nginx/mime.types;
+    default_type                  {{ elao_nginx_config_http.default_type|default("application/octet-stream") }};
+
+    ##
+    # Logging Settings
+    ##
+    
+    access_log {{ elao_nginx_config_http.access_log|default("/var/log/nginx/access.log") }};
+    error_log  {{ elao_nginx_config_http.error_log|default("/var/log/nginx/error.log") }};
+
+    ##
+    # Gzip Settings
+    ##
+
+    gzip                    {{ elao_nginx_config_gzip.active|default("on") }};
+    gzip_disable            {{ elao_nginx_config_gzip.gzip_disable|default("msie6") }};
+
+    gzip_vary               {{ elao_nginx_config_gzip.gzip_vary|default("on") }};
+    gzip_proxied            {{ elao_nginx_config_gzip.gzip_proxied|default("any") }};
+    gzip_comp_level         {{ elao_nginx_config_gzip.gzip_comp_level|default(6) }};
+    gzip_buffers            {{ elao_nginx_config_gzip.gzip_buffers|default("16 8k") }};
+    gzip_http_version       {{ elao_nginx_config_gzip.gzip_http_version|default("1.1") }};
+    gzip_types              {{ elao_nginx_config_gzip.gzip_types|default("text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;") }};
+
+    ##
+    # nginx-naxsi config
+    ##
+    # Uncomment it if you installed nginx-naxsi
+    ##
+
+    #include /etc/nginx/naxsi_core.rules;
+
+    ##
+    # Virtual Host Configs
+    ##
+
+    include /etc/nginx/conf.d/*.conf;
+    include /etc/nginx/sites-enabled/*;
+}
