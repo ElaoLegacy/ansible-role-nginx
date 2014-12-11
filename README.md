@@ -13,7 +13,7 @@ Role Variables
 
     All those values are default configuration, specify them only if you need to override the default configuration.
 
-## Sample configuration:
+#### Sample configuration:
 
 ```
 elao_nginx_config_global:
