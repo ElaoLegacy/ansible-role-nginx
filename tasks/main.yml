@@ -1,5 +1,8 @@
 ---
 
+# Patches
+- include: patches/0010_config.yml
+
 - include: packages.yml
 - include: services.yml
 - include: config.yml

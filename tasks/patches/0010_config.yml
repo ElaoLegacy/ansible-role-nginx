@@ -1,0 +1,14 @@
+---
+
+# Remove old style config files if exists
+
+- name: config
+  file: >
+    path=/etc/nginx/conf.d/90_config_{{ item }}.conf
+    state=absent
+  notify:
+    - nginx restart 
+  with_items:   
+    - dev
+    - prod
+  sudo: yes
