@@ -57,6 +57,7 @@ http {
     gzip_proxied            {{ elao_nginx_config_gzip.gzip_proxied|default("any") }};
     gzip_comp_level         {{ elao_nginx_config_gzip.gzip_comp_level|default(6) }};
     gzip_buffers            {{ elao_nginx_config_gzip.gzip_buffers|default("16 8k") }};
+    gzip_min_length         {{ elao_nginx_config_gzip.gzip_min_length|default(20) }};
     gzip_http_version       {{ elao_nginx_config_gzip.gzip_http_version|default("1.1") }};
     gzip_types              {{ elao_nginx_config_gzip.gzip_types|default("text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript") }};
 
